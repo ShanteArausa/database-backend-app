@@ -15,7 +15,6 @@ app.use(express.json());
 
 // Debug
 console.log("MONGO_URI:", process.env.MONGO_URI);
-
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
@@ -26,7 +25,9 @@ mongoose
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, "Name is required"],
+    trim: true,
+    minlength: [2, "Name must be at least 2 characters"],
   },
 });
 
