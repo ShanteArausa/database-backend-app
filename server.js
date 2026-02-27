@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Name is required"],
     trim: true,
-    minlength: [2, "Name must be at least 2 characters"],
+    minlength: [2, "Name must be at least 2 characters"]
   },
 });
 
@@ -47,8 +47,14 @@ app.post("/users", async (req, res) => {
       user: newUser,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+  if (error.name === "ValidationError") {
+    return res.status(400).json({
+      error: error.message
+    });
   }
+
+  res.status(500).json({ error: "Server error" });
+}
 });
 
 // Get all users from database
