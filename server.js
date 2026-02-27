@@ -5,11 +5,13 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  }),
-);
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://fullstack-client-vert.vercel.app"
+  ],
+  credentials: true
+}));
 // Create Express App FIRST
 app.use(express.json());
 
